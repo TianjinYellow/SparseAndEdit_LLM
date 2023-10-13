@@ -1,33 +1,4 @@
-# Pruning LLMs by Weights and Activations
-Official PyTorch implementation of **Wanda** (Pruning by **W**eights **and a**ctivations), as presented in our paper:
 
-**A Simple and Effective Pruning Approach for Large Language Models** </br>
-*Mingjie Sun\*, Zhuang Liu\*, Anna Bair, J. Zico Kolter* (* indicates equal contribution) <br>
-Carnegie Mellon University, Meta AI Research and Bosch Center for AI  <br>
-[Paper](https://arxiv.org/abs/2306.11695) - [Project page](https://eric-mingjie.github.io/wanda/home.html)
-
-```bibtex
-@article{sun2023wanda,
-  title={A Simple and Effective Pruning Approach for Large Language Models}, 
-  author={Sun, Mingjie and Liu, Zhuang and Bair, Anna and Kolter, J. Zico},
-  year={2023},
-  journal={arXiv preprint arXiv:2306.11695}
-}
-```
-
---- 
-<p align="center">
-<img src="https://user-images.githubusercontent.com/20168304/273351964-53c3807e-3453-49c5-b855-b620b1026466.png" width=100% height=100% 
-class="center">
-</p>
-
-Compared to magnitude pruning which removes weights solely based on their magnitudes, our pruning approach **Wanda** removes weights on a *per-output* basis, by the product of weight magnitudes and input activation norms.
-
-## Update
-- [x] (9.22.2023) Add [support](https://github.com/locuslab/wanda#pruning-llama-2) for LLaMA-2.
-- [x] (9.22.2023) Add [code](https://github.com/locuslab/wanda#ablation-on-obs-weight-update) to reproduce the ablation study on OBS weight update in the paper.
-- [x] (10.6.2023) Add new [support](https://github.com/locuslab/wanda#ablation-on-obs-weight-update) for the weight update analysis in the ablation study. Feel free to try it out!
-- [x] (10.6.2023) Add [support](https://github.com/locuslab/wanda#zero-shot-evaluation) for zero-shot evaluation.
 
 ## Setup
 Installation instructions can be found in [INSTALL.md](INSTALL.md).
@@ -73,19 +44,6 @@ python main.py \
     --sparsity_type unstructured \
     --save out/llama2_7b/unstructured/wanda/
 ```
-LLaMA-2 results: (LLaMA-2-34b is not released as of 9.22.2023)
-|sparsity| ppl              | llama2-7b | llama2-13b | llama2-70b |
-|------|------------------|----------|------------|------------|
-|-| dense            | 5.12     | 4.57       | 3.12     |
-|unstructured 50%| magnitude        | 14.89    | 6.37       | 4.98     |
-|unstructured 50%| sparsegpt        | 6.51     | 5.63       | **3.98**  |
-|unstructured 50%| wanda            | **6.42** | **5.56**   | **3.98**  |
-|4:8| magnitude        | 16.48    | 6.76       | 5.58     |
-|4:8| sparsegpt        | 8.12     | 6.60      | 4.59     |
-|4:8| wanda            | **7.97** | **6.55**  | **4.47**     |
-|2:4| magnitude        | 54.59    | 8.33       | 6.33       |
-|2:4| sparsegpt        | **10.17** | 8.32       | 5.40      |
-|2:4| wanda            | 11.02    | **8.27**   | **5.16**     |
 
 ### Ablation on OBS weight update
 To reproduce the analysis on weight update, we provide our implementation for this ablation. All commands can be found in [this script](scripts/ablate_weight_update.sh).
@@ -118,12 +76,3 @@ Last, for pruning image classifiers, see directory [image_classifiers](image_cla
 
 ## Acknowledgement
 This repository is build upon the [SparseGPT](https://github.com/IST-DASLab/sparsegpt) repository.
-
-## License
-This project is released under the MIT license. Please see the [LICENSE](LICENSE) file for more information.
-
-## Questions
-Feel free to discuss papers/code with us through issues/emails!
-
-mingjies at cs.cmu.edu  
-liuzhuangthu at gmail.com 
