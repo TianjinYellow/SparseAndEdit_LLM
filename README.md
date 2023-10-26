@@ -44,6 +44,18 @@ python main.py \
     --sparsity_type unstructured \
     --save out/llama2_7b/unstructured/wanda/
 ```
+### Quantization for LLaMA
+For [LLaMA-2](https://ai.meta.com/llama/) models, replace `--model` with `meta-llama/Llama-2-7b-hf` (take `7b` as an example):
+```sh 
+python main.py \
+    --model decapoda-research/llama-7b-hf
+    --dataset c4
+    --wbits 4
+    --true-sequential
+    --act-order
+    --new-eval \
+    --save out/llama_7b/unstructured/wanda/ 
+```
 
 ### Ablation on OBS weight update
 To reproduce the analysis on weight update, we provide our implementation for this ablation. All commands can be found in [this script](scripts/ablate_weight_update.sh).
